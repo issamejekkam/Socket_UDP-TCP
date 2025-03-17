@@ -42,6 +42,7 @@ int main() {
 
     // Accept an incoming connection
     new_socket = accept(server_fd, (struct sockaddr*)&client_addr, &addr_len);
+    
     if (new_socket < 0) {
         perror("Accept failed");
         exit(EXIT_FAILURE);
@@ -49,6 +50,7 @@ int main() {
     printf("✅ Connection accepted from %s:%d\n",
            inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
 
+    send(new_socket, "Bonjour\n", strlen("Bonjour\n"), 0);       
     // Communication loop
     while (1) {
         memset(buffer, 0, BUFFER_SIZE);  // Clear the buffer
